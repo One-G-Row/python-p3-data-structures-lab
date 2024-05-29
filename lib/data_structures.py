@@ -39,57 +39,51 @@ def print_spicy_foods(spicy_foods):
         result = (f"{food['name']}({food['cuisine']})| Heat Level: " + '🌶' * heat_level)
         print(result) 
 
-""" print_spicy_foods(spicy_foods)  """
-
 def get_spicy_food_by_cuisine(spicy_foods, cuisine):
     for food in spicy_foods:
-        food_cuisine = food['cuisine']
-        name = food['name']
-
-        if food_cuisine == cuisine:
-           print(food)
+       if food['cuisine'] == cuisine:
+           return food
 
 get_spicy_food_by_cuisine(spicy_foods, "American")
 
 
 def print_spiciest_foods(spicy_foods):
+    new_spicy_food_list = [food for food in spicy_foods if food['heat_level'] > 5]
+    print_spicy_foods(new_spicy_food_list)
+    spiciest_food = []
     for food in spicy_foods:
         heat_level = food['heat_level']
+        pepper_heat = '🌶' * heat_level
         if heat_level > 5:
-            print(f"{food['name']} ({food['cuisine']})| Heat Level:" + '🌶' * heat_level)
-            
+            result =f"{food['name']} ({food['cuisine']})| Heat Level: {pepper_heat}" 
+            spiciest_food.append(result)
+    print(spiciest_food)
 
 print_spiciest_foods(spicy_foods)
 
 def get_average_heat_level(spicy_foods):
-    """  heat_level_list = []
-     total_list = []
-     
-     total = 0
-     for food in spicy_foods:
+    heat_level = 0
+    for food in spicy_foods:
         heat_level = food['heat_level']
-        heat_level_list.append(heat_level)
-        total += heat_level
-        print(total)
-        total_list.append(total)
-        print(total_list)
-        last_list = total_list[-1]
-        last_element = last_list[-1]
-        print(last_element) 
-        print(total)  """
-        
-         
-        
-get_average_heat_level(spicy_foods)
+        if heat_level > 5:
+            heat_level += heat_level
+            average_heat_level = heat_level / len(spicy_foods)    
+        return average_heat_level
+    else:
+        return 0
+    
+   
+print(get_average_heat_level(spicy_foods))
 
-def create_spicy_food(spicy_foods, spicy_food):
+def create_spicy_food(my_spicy_foods, new_spicy_food):
        food_list = []
        
-       food_list.append(spicy_food) 
+       my_spicy_foods.append(new_spicy_food) 
        spicy_foods.extend(food_list)
        print(spicy_foods)
        
-create_spicy_food(spicy_foods,     {
+create_spicy_food(my_spicy_foods =spicy_foods,    
+                  new_spicy_food={
         'name': 'Griot',
         'cuisine': 'Haitian',
         'heat_level': 10,
